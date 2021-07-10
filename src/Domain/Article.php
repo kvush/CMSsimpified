@@ -4,7 +4,6 @@ namespace App\Domain;
 
 use InvalidArgumentException;
 use RuntimeException;
-use Webmozart\Assert\Assert;
 
 /**
  * Class Article
@@ -25,9 +24,6 @@ final class Article
 
     public static function createFromDto(ArticleDto $articleDto): self
     {
-        Assert::notEmpty($articleDto->id);
-        Assert::notEmpty($articleDto->createdAt);
-
         if (empty($articleDto->title)) {
             throw new InvalidArgumentException('title must be provided');
         }
