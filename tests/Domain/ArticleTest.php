@@ -20,9 +20,7 @@ class ArticleTest extends TestCase
     private const UPDATED_DATE_TIME = '2021-01-02 12:59:00';
     private const DELETED_DATE_TIME = '2021-01-03 15:05:59';
 
-    /**
-     * @test
-     */
+    /** @test */
     public function create_new_article()
     {
         $articleDto = new ArticleDto([
@@ -40,9 +38,7 @@ class ArticleTest extends TestCase
         $this->assertEquals(self::CREATED_DATE_TIME, ReflectionAccess::getValue($article, 'updatedAt')->asString());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function update_article()
     {
         $articleDto = new ArticleDto([
@@ -64,9 +60,7 @@ class ArticleTest extends TestCase
         $this->assertEquals(self::UPDATED_DATE_TIME, ReflectionAccess::getValue($article, 'updatedAt')->asString());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function delete_article()
     {
         $articleDto = new ArticleDto([
