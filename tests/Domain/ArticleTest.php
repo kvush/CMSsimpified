@@ -2,6 +2,11 @@
 
 namespace App\Tests\Domain;
 
+use App\Domain\ArchiveArticle;
+use App\Domain\Article;
+use App\Domain\ArticleDto;
+use App\Domain\ChangeArticle;
+use App\Tests\ReflectionAccess;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,24 +15,29 @@ use PHPUnit\Framework\TestCase;
  */
 class ArticleTest extends TestCase
 {
+    private const ARTICLE_ID = '9f769195-7221-4138-a295-7a1a4f498268';
+    private const CREATED_DATE_TIME = '2021-01-01 10:03:13';
+    private const UPDATED_DATE_TIME = '2021-01-02 12:59:00';
+    private const DELETED_DATE_TIME = '2021-01-03 15:05:59';
+
     /**
      * @test
      */
     public function create_new_article()
     {
-        $id = 'some_unique_id';
-        $title = 'test article';
-        $body = 'this is first article';
-        $createdAt = 1;
-        $updatedAt = 1;
+        $articleDto = new ArticleDto([
+            'id' => self::ARTICLE_ID,
+            'title' => 'Test Article',
+            'body' => 'This is first article',
+            'createdAt' => self::CREATED_DATE_TIME,
+        ]);
+        $article = Article::createFromDto($articleDto);
 
-        $article = Article::createNew($id, $title, $body);
-
-        $this->assertEquals($article->id, $id);
-        $this->assertEquals($article->title, $title);
-        $this->assertEquals($article->body, $body);
-        $this->assertEquals($article->createdAt, $createdAt);
-        $this->assertEquals($article->updatedAt, $updatedAt);
+        $this->assertEquals(self::ARTICLE_ID, ReflectionAccess::getValue($article, 'id')->asString());
+        $this->assertEquals('Test Article', ReflectionAccess::getValue($article, 'title'));
+        $this->assertEquals('This is first article', ReflectionAccess::getValue($article, 'body'));
+        $this->assertEquals(self::CREATED_DATE_TIME, ReflectionAccess::getValue($article, 'createdAt')->asString());
+        $this->assertEquals(self::CREATED_DATE_TIME, ReflectionAccess::getValue($article, 'updatedAt')->asString());
     }
 
     /**
@@ -35,23 +45,23 @@ class ArticleTest extends TestCase
      */
     public function update_article()
     {
-        $id = 'some_unique_id';
-        $title = 'test article';
-        $body = 'this is first article';
-        $createdAt = 1;
-        $updatedAt = 1;
-
-        $article = Article::createNew($id, $title, $body);
-
-        $newBody = 'this is edited body';
-        $article->applyChangedBody($newBody);
+        $articleDto = new ArticleDto([
+            'id' => self::ARTICLE_ID,
+            'title' => 'Test Article',
+            'body' => 'This is first article',
+            'createdAt' => self::CREATED_DATE_TIME
+        ]);
+        $article = Article::createFromDto($articleDto);
 
         $newTitle = 'new tile';
-        $article->rename($newTitle);
+        $newBody = 'this is edited body';
 
-        $this->assertEquals($article->title, $newTitle);
-        $this->assertEquals($article->body, $newBody);
-        $this->assertEquals($article->updatedAt, $updatedAt);
+        $changeArticle = new ChangeArticle(self::UPDATED_DATE_TIME, $newTitle, $newBody);
+        $article->apply($changeArticle);
+
+        $this->assertEquals($newTitle, ReflectionAccess::getValue($article, 'title'));
+        $this->assertEquals($newBody, ReflectionAccess::getValue($article, 'body'));
+        $this->assertEquals(self::UPDATED_DATE_TIME, ReflectionAccess::getValue($article, 'updatedAt')->asString());
     }
 
     /**
@@ -59,17 +69,18 @@ class ArticleTest extends TestCase
      */
     public function delete_article()
     {
-        $id = 'some_unique_id';
-        $title = 'test article';
-        $body = 'this is first article';
-        $createdAt = 1;
-        $updatedAt = 1;
-        $archivedAt = 1;
+        $articleDto = new ArticleDto([
+            'id' => self::ARTICLE_ID,
+            'title' => 'Test Article',
+            'body' => 'This is first article',
+            'createdAt' => self::CREATED_DATE_TIME
+        ]);
+        $article = Article::createFromDto($articleDto);
 
-        $article = Article::createNew($id, $title, $body);
+        $archiveArticle = new ArchiveArticle(self::DELETED_DATE_TIME);
+        $article->archive($archiveArticle);
 
-        $article->archive();
-        $this->assertTrue($article->archived);
-        $this->assertEquals($article->archivedAt, $archivedAt);
+        $this->assertTrue($article->isArchived());
+        $this->assertEquals(self::DELETED_DATE_TIME, ReflectionAccess::getValue($article, 'archivedAt')->asString());
     }
 }
