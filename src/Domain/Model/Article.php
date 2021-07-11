@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Model;
 
+use App\Domain\MyDateTime;
+use App\Domain\Dto\ArchiveArticle;
+use App\Domain\Dto\ArticleDto;
+use App\Domain\Dto\ChangeArticle;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -14,9 +18,9 @@ final class Article
     private ArticleId $id;
     private string $title;
     private string $body;
-    private DateTime $createdAt;
-    private DateTime $updatedAt;
-    private ?DateTime $archivedAt = null;
+    private MyDateTime $createdAt;
+    private MyDateTime $updatedAt;
+    private ?MyDateTime $archivedAt = null;
 
     private function __construct()
     {

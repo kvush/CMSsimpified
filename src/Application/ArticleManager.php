@@ -2,12 +2,12 @@
 
 namespace App\Application;
 
-use App\Domain\ArchiveArticle;
-use App\Domain\Article;
-use App\Domain\ArticleDto;
+use App\Domain\Dto\ArchiveArticle;
+use App\Domain\Model\Article;
+use App\Domain\Dto\ArticleDto;
 use App\Domain\ArticleRepository;
-use App\Domain\ChangeArticle;
-use App\Domain\DateTime;
+use App\Domain\Dto\ChangeArticle;
+use App\Domain\MyDateTime;
 use RuntimeException;
 
 /**
@@ -49,7 +49,7 @@ final class ArticleManager
             'id' => $id,
             'title' => $title,
             'body' => $body,
-            'createdAt' => $this->clock->currentTime()->format(DateTime::DATE_TIME_FORMAT),
+            'createdAt' => $this->clock->currentTime()->format(MyDateTime::DATE_TIME_FORMAT),
         ]);
 
         $article = Article::createFromDto($articleDto);
@@ -65,7 +65,7 @@ final class ArticleManager
         }
 
         $article = $this->repository->getById($id);
-        $updatedAt = $this->clock->currentTime()->format(DateTime::DATE_TIME_FORMAT);
+        $updatedAt = $this->clock->currentTime()->format(MyDateTime::DATE_TIME_FORMAT);
         $article->apply(new ChangeArticle($title, $body, $updatedAt));
 
         $this->repository->save($article);
@@ -78,7 +78,7 @@ final class ArticleManager
         }
 
         $article = $this->repository->getById($id);
-        $deletedAt = $this->clock->currentTime()->format(DateTime::DATE_TIME_FORMAT);
+        $deletedAt = $this->clock->currentTime()->format(MyDateTime::DATE_TIME_FORMAT);
 
         $article->archive(new ArchiveArticle($deletedAt));
 

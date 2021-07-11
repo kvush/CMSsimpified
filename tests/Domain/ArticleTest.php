@@ -2,10 +2,10 @@
 
 namespace App\Tests\Domain;
 
-use App\Domain\ArchiveArticle;
-use App\Domain\Article;
-use App\Domain\ArticleDto;
-use App\Domain\ChangeArticle;
+use App\Domain\Dto\ArchiveArticle;
+use App\Domain\Model\Article;
+use App\Domain\Dto\ArticleDto;
+use App\Domain\Dto\ChangeArticle;
 use App\Tests\ReflectionAccess;
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Dto;
+
+use App\Domain\MyDateTime;
+use App\Domain\Model\ArticleId;
 
 /**
  * Class ArticleDto
@@ -11,9 +14,9 @@ final class ArticleDto
     public ArticleId $id;
     public string $title;
     public string $body;
-    public DateTime $createdAt;
-    public ?DateTime $updatedAt = null;
-    public ?DateTime $deletedAt = null;
+    public MyDateTime $createdAt;
+    public ?MyDateTime $updatedAt = null;
+    public ?MyDateTime $deletedAt = null;
 
     /**
      * ArticleDto constructor.
@@ -24,9 +27,9 @@ final class ArticleDto
         $this->id = ArticleId::fromString($rowData['id']);
         $this->title = $rowData['title'];
         $this->body = $rowData['body'];
-        $this->createdAt = DateTime::fromString($rowData['createdAt']);
+        $this->createdAt = MyDateTime::fromString($rowData['createdAt']);
         if (isset($rowData['updatedAt'])) {
-            $this->updatedAt = DateTime::fromString($rowData['updatedAt']);
+            $this->updatedAt = MyDateTime::fromString($rowData['updatedAt']);
         }
         $this->deletedAt = $rowData['deletedAt'] ?? null;
     }

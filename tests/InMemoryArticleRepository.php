@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use App\Domain\Article;
 use App\Domain\ArticleRepository;
+use App\Domain\Model\Article;
 use RuntimeException;
 
 /**

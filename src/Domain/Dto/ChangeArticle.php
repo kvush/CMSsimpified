@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Dto;
 
+use App\Domain\MyDateTime;
 use InvalidArgumentException;
 
 /**
@@ -10,7 +11,7 @@ use InvalidArgumentException;
  */
 final class ChangeArticle
 {
-    private DateTime $updatedAt;
+    private MyDateTime $updatedAt;
     private ?string $title;
     private ?string $body;
 
@@ -25,15 +26,15 @@ final class ChangeArticle
         if ($title === null && $body === null) {
             throw new InvalidArgumentException("at least title or body must be provided");
         }
-        $this->updatedAt = DateTime::fromString($updatedAt);
+        $this->updatedAt = MyDateTime::fromString($updatedAt);
         $this->title = $title;
         $this->body = $body;
     }
 
     /**
-     * @return DateTime
+     * @return MyDateTime
      */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): MyDateTime
     {
         return $this->updatedAt;
     }

@@ -8,7 +8,7 @@ use DateTimeImmutable;
  * Class Date
  * @package App\Domain
  */
-final class DateTime
+final class MyDateTime
 {
     public const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
     private string $date;

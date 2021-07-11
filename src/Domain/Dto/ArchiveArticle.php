@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Dto;
+
+use App\Domain\MyDateTime;
 
 /**
  * Class ArchiveArticle
@@ -8,7 +10,7 @@ namespace App\Domain;
  */
 final class ArchiveArticle
 {
-    private DateTime $archivedAt;
+    private MyDateTime $archivedAt;
 
     /**
      * ArchiveArticle constructor.
@@ -16,13 +18,13 @@ final class ArchiveArticle
      */
     public function __construct(string $archivedAt)
     {
-        $this->archivedAt = DateTime::fromString($archivedAt);
+        $this->archivedAt = MyDateTime::fromString($archivedAt);
     }
 
     /**
-     * @return DateTime
+     * @return MyDateTime
      */
-    public function getArchivedAt(): DateTime
+    public function getArchivedAt(): MyDateTime
     {
         return $this->archivedAt;
     }

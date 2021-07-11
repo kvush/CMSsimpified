@@ -2,6 +2,8 @@
 
 namespace App\Domain;
 
+use App\Domain\Model\Article;
+
 /**
  * Interface ArticleRepository
  * @package App\Domain

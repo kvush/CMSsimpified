@@ -3,10 +3,10 @@
 namespace App\Tests\Application;
 
 use App\Application\ArticleManager;
-use App\Domain\Article;
-use App\Domain\ArticleDto;
+use App\Domain\Model\Article;
+use App\Domain\Dto\ArticleDto;
 use App\Domain\ArticleRepository;
-use App\Domain\DateTime;
+use App\Domain\MyDateTime;
 use App\Infrastructure\SystemClock;
 use App\Tests\InMemoryArticleRepository;
 use App\Tests\ReflectionAccess;
@@ -42,7 +42,7 @@ class ArticleManagerTest extends TestCase
 
         $fakeClock = $this->createStub(SystemClock::class);
         $fakeClock->method('currentTime')
-            ->willReturn(DateTimeImmutable::createFromFormat(DateTime::DATE_TIME_FORMAT, '2021-07-11 12:34:17'));
+            ->willReturn(DateTimeImmutable::createFromFormat(MyDateTime::DATE_TIME_FORMAT, '2021-07-11 12:34:17'));
 
         $this->articleManager = new ArticleManager($repo, $fakeClock);
         $this->articleRepository = $repo;
