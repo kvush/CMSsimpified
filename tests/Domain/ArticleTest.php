@@ -52,7 +52,7 @@ class ArticleTest extends TestCase
         $newTitle = 'new tile';
         $newBody = 'this is edited body';
 
-        $changeArticle = new ChangeArticle(self::UPDATED_DATE_TIME, $newTitle, $newBody);
+        $changeArticle = new ChangeArticle($newTitle, $newBody, self::UPDATED_DATE_TIME);
         $article->apply($changeArticle);
 
         $this->assertEquals($newTitle, ReflectionAccess::getValue($article, 'title'));

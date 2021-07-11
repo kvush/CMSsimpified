@@ -10,7 +10,7 @@ use DateTimeImmutable;
  */
 final class DateTime
 {
-    private const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_TIME_FORMAT = 'Y-m-d H:i:s';
     private string $date;
 
     /**

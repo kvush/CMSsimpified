@@ -16,11 +16,11 @@ final class ChangeArticle
 
     /**
      * ChangeArticle constructor.
-     * @param string $updatedAt
      * @param string|null $title
      * @param string|null $body
+     * @param string $updatedAt
      */
-    public function __construct(string $updatedAt, ?string $title = null, ?string $body = null)
+    public function __construct(?string $title, ?string $body, string $updatedAt)
     {
         if ($title === null && $body === null) {
             throw new InvalidArgumentException("at least title or body must be provided");
