@@ -106,4 +106,18 @@ class ArticleManagerTest extends TestCase
         $this->expectExceptionMessage("you have no access");
         $this->articleManager->deleteArticle(self::ARTICLE_ID, self::WRONG_SECRET_TOKEN);
     }
+
+    /** @test  */
+    public function cant_set_empty_title()
+    {
+        $this->expectExceptionMessage("title must be provided");
+        $this->articleManager->updateArticle(self::ARTICLE_ID, '', 'new body', self::SECRET_TOKEN);
+    }
+
+    /** @test  */
+    public function cant_set_empty_body()
+    {
+        $this->expectExceptionMessage("body must be provided");
+        $this->articleManager->updateArticle(self::ARTICLE_ID, 'new title', '', self::SECRET_TOKEN);
+    }
 }

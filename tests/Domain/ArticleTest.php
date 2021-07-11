@@ -77,4 +77,30 @@ class ArticleTest extends TestCase
         $this->assertTrue($article->isArchived());
         $this->assertEquals(self::DELETED_DATE_TIME, ReflectionAccess::getValue($article, 'archivedAt')->asString());
     }
+
+    /** @test  */
+    public function cant_make_empty_body()
+    {
+        $this->expectExceptionMessage('body must be provided');
+        $articleDto = new ArticleDto([
+            'id' => self::ARTICLE_ID,
+            'title' => 'Test Article',
+            'body' => '',
+            'createdAt' => self::CREATED_DATE_TIME
+        ]);
+        Article::createFromDto($articleDto);
+    }
+
+    /** @test  */
+    public function cant_make_empty_title()
+    {
+        $this->expectExceptionMessage('title must be provided');
+        $articleDto = new ArticleDto([
+            'id' => self::ARTICLE_ID,
+            'title' => '',
+            'body' => 'some article body',
+            'createdAt' => self::CREATED_DATE_TIME
+        ]);
+        Article::createFromDto($articleDto);
+    }
 }

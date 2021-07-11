@@ -54,11 +54,20 @@ final class Article
         if ($this->isArchived()) {
             throw new RuntimeException("Can not apply changes to archive article");
         }
-        if ($changeArticle->getTitle() !== null) {
-            $this->title = $changeArticle->getTitle();
+        $title = $changeArticle->getTitle();
+        if ($title === '') {
+            throw new InvalidArgumentException('title must be provided');
         }
-        if ($changeArticle->getBody() !== null) {
-            $this->body = $changeArticle->getBody();
+        $body = $changeArticle->getBody();
+        if ($body === '') {
+            throw new InvalidArgumentException('body must be provided');
+        }
+
+        if ($title !== null) {
+            $this->title = $title;
+        }
+        if ($body !== null) {
+            $this->body = $body;
         }
 
         $this->updatedAt = $changeArticle->getUpdatedAt();
