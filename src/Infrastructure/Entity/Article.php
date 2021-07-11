@@ -2,11 +2,15 @@
 
 namespace App\Infrastructure\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Infrastructure\Repository\SqliteArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=SqliteArticleRepository::class)
+ * @ApiResource(
+ *     itemOperations={"get", "put", "delete"}
+ * )
  */
 class Article
 {
