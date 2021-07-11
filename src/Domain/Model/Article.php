@@ -96,6 +96,7 @@ final class Article
             'body' => $this->body,
             'created_at' => $this->createdAt->asString(),
             'updated_at' => $this->updatedAt->asString(),
+            'deleted_at' => $this->archivedAt ? $this->archivedAt->asString() : null,
         ];
     }
 }
