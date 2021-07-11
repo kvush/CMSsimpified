@@ -44,15 +44,18 @@ final class ArticleManager
             throw new RuntimeException("you have no access");
         }
 
+        $id = $this->repository->getNextId();
         $articleDto = new ArticleDto([
-            'id' => $this->repository->getNextId(),
+            'id' => $id,
             'title' => $title,
             'body' => $body,
             'createdAt' => $this->clock->currentTime()->format(DateTime::DATE_TIME_FORMAT),
         ]);
-        $article = Article::createFromDto($articleDto);
 
-        return $this->repository->save($article);
+        $article = Article::createFromDto($articleDto);
+        $this->repository->save($article);
+
+        return $id;
     }
 
     public function updateArticle(string $id, ?string $title, ?string $body, string $token): void

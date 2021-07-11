@@ -12,5 +12,5 @@ interface ArticleRepository
 
     public function getNextId(): string;
 
-    public function save(Article $article): string;
+    public function save(Article $article): void;
 }

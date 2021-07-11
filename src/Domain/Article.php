@@ -70,6 +70,11 @@ final class Article
         return $this->archivedAt !== null;
     }
 
+    public function getId(): string
+    {
+        return $this->id->asString();
+    }
+
     public function mappedData(): array
     {
         return [
