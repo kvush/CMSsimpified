@@ -94,9 +94,9 @@ final class Article
             'id' => $this->id->asString(),
             'title' => $this->title,
             'body' => $this->body,
-            'created_at' => $this->createdAt->asString(),
-            'updated_at' => $this->updatedAt->asString(),
-            'deleted_at' => $this->archivedAt ? $this->archivedAt->asString() : null,
+            'created_at' => $this->createdAt->asDateTimeImmutable(),
+            'updated_at' => $this->updatedAt->asDateTimeImmutable(),
+            'deleted_at' => $this->archivedAt ? $this->archivedAt->asDateTimeImmutable() : null,
         ];
     }
 }

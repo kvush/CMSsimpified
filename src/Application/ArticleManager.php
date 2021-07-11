@@ -58,6 +58,15 @@ final class ArticleManager
         return $id;
     }
 
+    public function getArticle(string $id, string $token): Article
+    {
+        if ($token !== $this->hardCodedSecretKey) {
+            throw new RuntimeException("you have no access");
+        }
+
+        return $this->repository->getById($id);
+    }
+
     public function updateArticle(string $id, ?string $title, ?string $body, string $token): void
     {
         if ($token !== $this->hardCodedSecretKey) {

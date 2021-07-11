@@ -34,4 +34,9 @@ final class MyDateTime
     {
         return $this->date;
     }
+
+    public function asDateTimeImmutable(): DateTimeImmutable
+    {
+        return DateTimeImmutable::createFromFormat(self::DATE_TIME_FORMAT, $this->date);
+    }
 }
